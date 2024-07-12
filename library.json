@@ -1,0 +1,21 @@
+{
+    "name": "OSIFailsafeOTA",
+    "version": "1.0.0",
+    "description": "Provides a failsafe OTA update mechanism for the ESP8266 after multiple exceptions.",
+    "keywords": "fail, failsafe, ota, update, esp8266, crash, restart, reboot, exception, handler, over-the-air, firmware, update, arduino",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/jopsi/OSIFailsafeOTA.git"
+    },
+    "authors": [
+      {
+        "name": "Oliver Siepmann",
+        "email": "jop_s@gmx.de",
+        "maintainer": true
+      }
+    ],
+    "license": "MIT",
+    "frameworks": "arduino",
+    "platforms": "esp8266"
+  }
+  
