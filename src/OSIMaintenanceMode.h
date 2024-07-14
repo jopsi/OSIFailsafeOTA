@@ -51,6 +51,7 @@ public:
     bool loop();                                // Laufende Prüfung der Ausnahmen
     void registerOTA();                         // Registriert die OTA-Ereignisse
     bool handleOTAAndQuit();                    // Verarbeitet OTA-Ereignisse
+    OSIMaintenanceModeWifi *getWifi();          // Gibt die WiFi-Instanz zurück
 };
 
 extern OSIMaintenanceMode maintenanceMode;

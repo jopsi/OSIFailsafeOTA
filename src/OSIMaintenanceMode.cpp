@@ -129,6 +129,10 @@ bool OSIMaintenanceMode::loop() {
     return maintenanceMode;
 }
 
+OSIMaintenanceModeWifi *OSIMaintenanceMode::getWifi() {
+    return wifi;
+}
+
 
 
 
