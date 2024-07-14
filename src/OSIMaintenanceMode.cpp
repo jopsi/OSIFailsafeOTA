@@ -83,6 +83,12 @@ OSIMaintenanceMode::OSIMaintenanceMode() : wifi(nullptr) {
 OSIMaintenanceMode::~OSIMaintenanceMode() {
 }
 
+void OSIMaintenanceMode::initWifiAndOTA(const String username, const String password, uint32_t connectTimeout) {
+    wifi = new OSIMaintenanceModeWifi(username, password, connectTimeout);
+    registerOTA();
+}
+
+
 /**
  * @brief Setzt den Wartungsmodus auf und überprüft die Boot-Gründe.
  * 
@@ -97,8 +103,7 @@ bool OSIMaintenanceMode::setup(const String username, const String password, uin
         osiExceptionCount.reset();
         osiExceptionCount.commit();
         // WiFi-Instanz für Wartungsmodus initialisieren
-        wifi = new OSIMaintenanceModeWifi(username, password, connectTimeout);
-        registerOTA();
+        initWifiAndOTA(username, password, connectTimeout);
         // Keine verzögerte Speicherung des Ausnahmezähler erforderlich
         maintenanceMode = true;
         Serial.println(F("Maintenance mode activated"));

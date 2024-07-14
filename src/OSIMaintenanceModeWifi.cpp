@@ -229,10 +229,11 @@ void OSIMaintenanceModeWifi::createAP(String password) {
  */
 OSIMaintenanceModeWifi::OSIMaintenanceModeWifi(const String username, const String password, uint32_t connectTimeout) {
     wifiCredentials = new OSIWiFiCredentials();
-    connected = false;
+    connected = true;
     if (!OSIMaintenanceModeBestWifi::connect2BestKnownNetwork(wifiCredentials, 5000)) {
         Serial.println(F("Failed to connect to any WiFi network. Opening own AP."));
         createAP(password);
+        connected = false;
     }
     setupWebServer();
     OSIFileManager *getInstance = OSIFileManager::getInstance();

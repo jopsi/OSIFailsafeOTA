@@ -47,6 +47,7 @@ public:
     OSIMaintenanceMode();                       // Konstruktor
     ~OSIMaintenanceMode();                      // Destruktor
     bool setup(const String username, const String password, uint32_t connectTimeout=10000);                    // Initialisierung der Wartungslogik
+    void initWifiAndOTA(const String username, const String password, uint32_t connectTimeout);                 // Initialisierung von WiFi und OTA
     bool loop();                                // Laufende Prüfung der Ausnahmen
     void registerOTA();                         // Registriert die OTA-Ereignisse
     bool handleOTAAndQuit();                    // Verarbeitet OTA-Ereignisse
