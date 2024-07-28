@@ -3,9 +3,9 @@
 #include <ESP8266WiFi.h>
 
 
-OSIWifiHandler::OSIWifiHandler(OSIWiFiCredentials &wifiCredentials) {
+OSIWifiHandler::OSIWifiHandler(OSIWiFiCredentials *wifiCredentials) {
     int n = 0;
-    n = wifiCredentials.getUsedCount();
+    n = wifiCredentials->getUsedCount();
     Serial.printf_P(PSTR("Configured SSIDs: %d "), n);
     uint8_t netNum = getWLANCount();
     n += netNum;
@@ -19,12 +19,12 @@ OSIWifiHandler::~OSIWifiHandler(){
     delete networks;
 }
 
-void OSIWifiHandler::readFromWifiCredentials(OSIWiFiCredentials &wifiCredentials){
-    for (int i = 0; i < wifiCredentials.getMaxSSIDs(); i++) {
-        if (wifiCredentials.isUsed(i)) {
+void OSIWifiHandler::readFromWifiCredentials(OSIWiFiCredentials *wifiCredentials){
+    for (int i = 0; i < wifiCredentials->getMaxSSIDs(); i++) {
+        if (wifiCredentials->isUsed(i)) {
             char ssid[32+1];
             char password[64+1];
-            wifiCredentials.getCredential(i, ssid, password, sizeof(ssid), sizeof(password));
+            wifiCredentials->getCredential(i, ssid, password, sizeof(ssid), sizeof(password));
             OSINetwork network{ssid, password, -1};
             networks->push_back(network);
         }
@@ -50,10 +50,10 @@ void OSIWifiHandler::scanForNetworks(uint8_t n){
     });
 }
 
-void OSIWifiHandler::updateCredentials(OSIWiFiCredentials &wifiCredentials){
+void OSIWifiHandler::updateCredentials(OSIWiFiCredentials *wifiCredentials){
     // Clear the credentials
-    for (int i = 0; i < wifiCredentials.getMaxSSIDs(); i++) {
-        wifiCredentials.clearCredential(i);
+    for (int i = 0; i < wifiCredentials->getMaxSSIDs(); i++) {
+        wifiCredentials->clearCredential(i);
     }
     uint8_t idx = 0;
     for (size_t i = 0; i < networks->size(); i++) {
@@ -61,10 +61,10 @@ void OSIWifiHandler::updateCredentials(OSIWiFiCredentials &wifiCredentials){
         if (network.ssid != "" && network.password != "") {
             // Check if the SSID is already in the list
             bool skip = false;
-            for (int j = 0; j < wifiCredentials.getMaxSSIDs(); j++) {
+            for (int j = 0; j < wifiCredentials->getMaxSSIDs(); j++) {
                 char ssid[32+1];
                 char password[64+1];
-                wifiCredentials.getCredential(j, ssid, password, sizeof(ssid), sizeof(password));
+                wifiCredentials->getCredential(j, ssid, password, sizeof(ssid), sizeof(password));
                 if (network.ssid.equals(ssid)) {
                     skip = true;
                     break;
@@ -73,9 +73,9 @@ void OSIWifiHandler::updateCredentials(OSIWiFiCredentials &wifiCredentials){
             if (skip) {
                 continue;
             }
-            wifiCredentials.setCredential(idx, network.ssid.c_str(), network.password.c_str());
+            wifiCredentials->setCredential(idx, network.ssid.c_str(), network.password.c_str());
             idx++;
-            if (idx == wifiCredentials.getMaxSSIDs()) {
+            if (idx == wifiCredentials->getMaxSSIDs()) {
                 break;
             }
         }

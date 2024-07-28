@@ -83,7 +83,7 @@ void OSIMaintenanceModeWifi::updateConfigFile(AsyncWebServerRequest *request) {
     wifiCredentials->saveToFile();
     request->send_P(200, PSTR("text/html"), PSTR("<p>Configuration updated! Rebooting...</p>"));
     Serial.println(F("Configuration updated! Rebooting in 1000ms ..."));
-    delay(1000);
+    LittleFS.end();
     ESP.restart();  // Restart to apply changes
 }
 
@@ -245,7 +245,8 @@ OSIMaintenanceModeWifi::OSIMaintenanceModeWifi(const String username, const Stri
 /**
  * @brief Destroy the Maintenance Mode Wifi object
  */
-OSIMaintenanceModeWifi::~OSIMaintenanceModeWifi() { 
+OSIMaintenanceModeWifi::~OSIMaintenanceModeWifi() {
+    Serial.println(F("==> destructor OSIMaintenanceModeWifi"));
     delete wifiCredentials;
 }
 

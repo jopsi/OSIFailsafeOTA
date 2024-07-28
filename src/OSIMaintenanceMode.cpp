@@ -120,11 +120,10 @@ bool OSIMaintenanceMode::setup(const String username, const String password, uin
  * @return True, wenn Wartungsmodus aktiv.
  */
 bool OSIMaintenanceMode::loop() {
-    if (maintenanceMode) {
-        handleOTAAndQuit();
-        if (wifi != nullptr) {
-            wifi->loop();
-        }
+    if (handleOTAAndQuit()) 
+        return true;
+    if (wifi != nullptr) {
+        wifi->loop();
     }
     return maintenanceMode;
 }

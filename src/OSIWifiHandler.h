@@ -13,16 +13,16 @@ private:
     std::vector<OSINetwork> *networks;
 
     uint8_t getWLANCount();
-    void readFromWifiCredentials(OSIWiFiCredentials &wifiCredentials);
+    void readFromWifiCredentials(OSIWiFiCredentials *wifiCredentials);
     void scanForNetworks(uint8_t netNum);        
 
 public:
-    OSIWifiHandler(OSIWiFiCredentials &wifiCredentials);
+    OSIWifiHandler(OSIWiFiCredentials *wifiCredentials);
     ~OSIWifiHandler();
     uint8_t getNetworkCount() { return networks->size(); }
     OSINetwork getNetwork(uint8_t index) { return (index < getNetworkCount()) ? networks->at(index) : OSINetwork(); }
     void setNetwork(uint8_t index, const OSINetwork &network) { if (index < getNetworkCount()) networks->at(index) = network; }
-    void updateCredentials(OSIWiFiCredentials &wifiCredentials);
+    void updateCredentials(OSIWiFiCredentials *wifiCredentials);
 };
 
 #endif

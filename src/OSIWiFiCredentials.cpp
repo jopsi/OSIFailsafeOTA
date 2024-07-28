@@ -10,6 +10,7 @@ void OSIWiFiCredentials::loadFromFile() {
             file.close();
         }
     } else {
+
         for (uint8_t i = 0; i < maxSSIDs; i++) {
             clearCredential(i);
         }
@@ -25,6 +26,7 @@ void OSIWiFiCredentials::saveToFile() {
     File file = LittleFS.open(filename, "w");
     if (file) {
         file.write((uint8_t*)credentials, sizeof(credentials));
+        file.flush();
         file.close();
         Serial.println("==> WiFi Credentials saved to file");
     } else {
@@ -38,7 +40,7 @@ OSIWiFiCredentials::OSIWiFiCredentials() {
         return;
     }
     loadFromFile();
-    Serial.println("==> WiFi Credentials:");
+    Serial.println("==> Known WiFi Credentials:");
     for (uint8_t i = 0; i < maxSSIDs; i++) {
         if (credentials[i].used) {
             Serial.printf("SSID %d: %s, %s\n", i, credentials[i].ssid, credentials[i].password);
@@ -47,6 +49,7 @@ OSIWiFiCredentials::OSIWiFiCredentials() {
 }
 
 OSIWiFiCredentials::~OSIWiFiCredentials() {
+    Serial.println("==> destructor OSIWiFiCredentials");
     saveToFile();
     LittleFS.end();
 }
