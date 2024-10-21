@@ -27,7 +27,8 @@ private:
     int lineNumber;
     String ssids[4];
     String page;
-    bool connected;
+    bool connected = false;
+    bool apMode = false;
     bool scan = true;
     volatile bool scanInProgress = false;
     bool invalidConfigFile = false;
@@ -46,6 +47,7 @@ public:
     void loop();
     bool isConnected() { return connected; }
     bool isConfigFileInvalid() { return invalidConfigFile; }
+    bool isAPMode() { return apMode; }
 };
 
 #endif // OSI_MAINTENANCE_MODE_WIFI_H

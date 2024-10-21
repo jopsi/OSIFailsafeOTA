@@ -6,13 +6,6 @@
 #else
 #include "LittleFS.h"               // LittleFS-Dateisystem für ESP8266
 #endif
-#if !defined(USE_ASYNC_WEBSERVER)
-#include <ESP8266WebServer.h>
-extern ESP8266WebServer myserver;
-#else
-#include <ESPAsyncWebServer.h>
-extern AsyncWebServer myserver;
-#endif
 
 OSIFileManager* OSIFileManager::instance = nullptr;
 volatile bool shouldReboot = false;
