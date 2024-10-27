@@ -19,6 +19,7 @@ AsyncWebServer myserver(80);
  * @brief Registriert die OTA-Handler für verschiedene Ereignisse
  */
 void OSIMaintenanceMode::registerOTA() {
+    Serial.println(F("Registering OTA events"));
     ArduinoOTA.onStart([]() {
         ota_uploading = true;
         Serial.print(F("Start OTA update -> Updating "));
@@ -37,6 +38,7 @@ void OSIMaintenanceMode::registerOTA() {
     });
 
     ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+        if (total == 0) total=1;
         uint8_t a = progress / (total / 100);
         if (a != ota_lastperc) {
             Serial.printf_P(PSTR("Progress: %u%%\r\n"), a);

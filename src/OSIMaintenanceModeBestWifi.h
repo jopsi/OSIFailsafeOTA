@@ -9,7 +9,7 @@
  * The class is derived from the ILineProcessor interface to process the WiFi scan results.
  */
 struct OSIWifiExtendedScanResult{
-    int32_t rssi = -100;
+    int32_t rssi;
     char    ssid[32+1];
     char    password[64+1];
     uint8_t bssid[6];
@@ -18,6 +18,9 @@ struct OSIWifiExtendedScanResult{
 
 
 class OSIMaintenanceModeBestWifi{
+private:
+    static uint16_t getNumberOfNetworks();
+    static bool isNetworkKnown(uint8_t index, const char *ssid);
 
 public:
     OSIMaintenanceModeBestWifi() {}
