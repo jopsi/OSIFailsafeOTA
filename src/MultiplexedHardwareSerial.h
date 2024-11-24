@@ -41,7 +41,7 @@ public:
     bool swap(uint8_t tx_pin);
     bool set_tx(uint8_t tx_pin);
     bool pins(uint8_t tx, uint8_t rx);
-    bool hasPeekBufferAPI () const override;
+    bool hasPeekBufferAPI () const;
     int available() override;
     int peek() override;
     const char* peekBuffer () override;
