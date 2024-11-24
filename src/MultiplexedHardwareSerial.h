@@ -44,15 +44,15 @@ public:
     bool hasPeekBufferAPI () const;
     int available() override;
     int peek() override;
-    const char* peekBuffer () override;
-    size_t peekAvailable () override;
-    void peekConsume (size_t consume) override;
+    const char* peekBuffer ();
+    size_t peekAvailable ();
+    void peekConsume (size_t consume);
     int read() override;
     int read(char* buffer, size_t size);
-    int read(uint8_t* buffer, size_t size) override;
+    int read(uint8_t* buffer, size_t size);
     size_t readBytes(char* buffer, size_t size) override;
     size_t readBytes(uint8_t* buffer, size_t size) override;
-    int availableForWrite() override;
+    int availableForWrite();
     void flush() override;
     // Update write methods to handle log rotation
     virtual size_t write(uint8_t c) override;
